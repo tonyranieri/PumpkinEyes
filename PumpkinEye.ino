@@ -272,10 +272,17 @@ void blink() {
 }
 
 void snooze() {
+  matrix.clear();
+  matrix.drawBitmap(0,0, blank, 8, 8, LED_ON);
+  matrix.writeDisplay();
+
   matrix.setTextSize(1);
   matrix.setTextWrap(false); 
   matrix.setTextColor(LED_ON);
-  for (int8_t x=0; x>=-36; x--) {
+
+  delay(2500);    
+
+  for (int8_t x=0; x>=-60; x--) {
     matrix.clear();
     matrix.setCursor(x,0);
     matrix.print("ZZZZZZZZZZZZZZZZ");
@@ -284,16 +291,13 @@ void snooze() {
   }
 
   matrix.clear();
+  matrix.drawBitmap(0,0, blank, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(3000);    
+
+  matrix.clear();
   matrix.drawBitmap(0,0, eyeball, 8, 8, LED_ON);
   matrix.writeDisplay();
-  delay(20);    
 }
-
-
-
-
-
-
-
 
 
