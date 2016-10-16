@@ -4,11 +4,15 @@
 
 Adafruit_8x8matrix matrix = Adafruit_8x8matrix();
 
+long randNumber;
+
 void setup() {
   Serial.begin(9600);
   Serial.println("8x8 LED Matrix Test");
   
   matrix.begin(0x70);  // pass in the address
+
+  randomSeed(analogRead(0));
 }
 
 static const uint8_t PROGMEM
@@ -21,6 +25,16 @@ static const uint8_t PROGMEM
     B11111111,
     B01111110,
     B00111100
+  },
+  blank[] {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000
   },
   eyeDownRight1[] {
     B00111100,
@@ -127,6 +141,9 @@ static const uint8_t PROGMEM
 
 void loop() {
 
+  randNumber = random(300);
+  Serial.println(randNumber);  
+
   matrix.clear();
   matrix.drawBitmap(0,0, eyeball, 8, 8, LED_ON);
   matrix.writeDisplay();
@@ -136,6 +153,11 @@ void loop() {
 
   delay(2500);
   blink();
+
+  delay(2500);
+
+  snooze();  
+  delay(2500);
 }
 
 void lookDownRight() {
@@ -243,7 +265,34 @@ void blink() {
   matrix.writeDisplay();
   delay(25);      
 
+  matrix.clear();
+  matrix.drawBitmap(0,0, eyeball, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(20);  
 }
+
+void snooze() {
+  matrix.setTextSize(1);
+  matrix.setTextWrap(false); 
+  matrix.setTextColor(LED_ON);
+  for (int8_t x=0; x>=-36; x--) {
+    matrix.clear();
+    matrix.setCursor(x,0);
+    matrix.print("ZZZZZZZZZZZZZZZZ");
+    matrix.writeDisplay();
+    delay(100);
+  }
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, eyeball, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(20);    
+}
+
+
+
+
+
 
 
 
