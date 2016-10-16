@@ -22,6 +22,26 @@ static const uint8_t PROGMEM
     B01111110,
     B00111100
   },
+  eyeDownRight1[] {
+    B00111100,
+    B01111110,
+    B11111111,
+    B11111111,
+    B11110011,
+    B11110011,
+    B01111110,
+    B00111100
+  },
+  eyeDownRight2[] {
+    B00111100,
+    B01111110,
+    B11111111,
+    B11111111,
+    B11111111,
+    B11111001,
+    B01111000,
+    B00111100
+  },  
   blink1[] = {
     B00000000,
     B01111110,
@@ -112,7 +132,33 @@ void loop() {
   matrix.writeDisplay();
   delay(5000);
 
+  lookDownRight();
+
+  delay(2500);
   blink();
+}
+
+void lookDownRight() {
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, eyeDownRight1, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(20);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, eyeDownRight2, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(750);
+  
+  matrix.clear();
+  matrix.drawBitmap(0,0, eyeDownRight1, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(20);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, eyeball, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(20);  
 }
 
 void blink() {
@@ -198,3 +244,7 @@ void blink() {
   delay(25);      
 
 }
+
+
+
+
