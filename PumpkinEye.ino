@@ -21,13 +21,180 @@ static const uint8_t PROGMEM
     B11111111,
     B01111110,
     B00111100
-  };
+  },
+  blink1[] = {
+    B00000000,
+    B01111110,
+    B11111111,
+    B11100111,
+    B11100111,
+    B11111111,
+    B01111110,
+    B00111100
+  },
+  blink2[] = {
+    B00000000,
+    B00000000,
+    B11111111,
+    B11100111,
+    B11100111,
+    B11111111,
+    B01111110,
+    B00111100
+  },
+  blink3[] = {
+    B00000000,
+    B00000000,
+    B00000000,
+    B11100111,
+    B11100111,
+    B11111111,
+    B01111110,
+    B00111100
+  },
+  blink4[] = {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B11100111,
+    B11111111,
+    B01111110,
+    B00111100
+  },
+  blink5[] = {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B11111111,
+    B01111110,
+    B00111100
+  },
+  blink6[] = {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B01111110,
+    B00111100
+  },
+  blink7[] = {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00111100
+  },
+  blink8[] = {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000
+  }          
+  ;
+
 
 void loop() {
 
   matrix.clear();
   matrix.drawBitmap(0,0, eyeball, 8, 8, LED_ON);
   matrix.writeDisplay();
-  delay(500);
+  delay(5000);
+
+  blink();
+}
+
+void blink() {
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink1, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink2, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink3, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink4, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink5, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink6, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink7, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink8, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink8, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink7, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink6, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink5, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink4, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+  
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink3, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink2, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);
+
+  matrix.clear();
+  matrix.drawBitmap(0,0, blink1, 8, 8, LED_ON);
+  matrix.writeDisplay();
+  delay(25);      
 
 }
