@@ -57,9 +57,9 @@ void loop() {
     int wait = random(10, 5000);
     delay(wait);
 
-    rollEye();
-
+    twirlEye();
     
+    //rollEye();    
     //spinEye();
     
     //pingpongEyeball();
@@ -367,6 +367,26 @@ void rollEye() {
         matrix.writeDisplay();
         delay(150);
         setPupilToLocatoin(DOWN);
+    }
+
+    movePupilToLocation(CENTER);
+}
+
+void twirlEye() {
+    int twirlCount = 3;
+    int delayms = 10;
+
+    movePupilToLocation(CENTER, delayms);
+
+    for(int i = 0; i < twirlCount; i++) {
+        movePupilToLocation(UP, delayms);
+        movePupilToLocation(UP_RIGHT, delayms);
+        movePupilToLocation(RIGHT, delayms);
+        movePupilToLocation(DOWN_RIGHT, delayms);
+        movePupilToLocation(DOWN, delayms);
+        movePupilToLocation(DOWN_LEFT, delayms);
+        movePupilToLocation(LEFT, delayms);
+        movePupilToLocation(UP_LEFT, delayms);
     }
 
     movePupilToLocation(CENTER);
