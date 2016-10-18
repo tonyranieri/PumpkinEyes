@@ -29,16 +29,26 @@ void movePupilToLocation(int destination) {
     int targetX = getPupilTargetX(destination),
         targetY = getPupilTargetY(destination);
 
-    for(; pupilX != targetX, pupilY != targetY; updatePupilX(targetX), updatePupilY(targetY)) {
-      Serial.println(pupilX);
-        drawEye();
+    Serial.print("destination: ");
+    Serial.println(destination);
+
+    Serial.print("destination coords (");
+    Serial.print(targetX);
+    Serial.print(",");
+    Serial.print(targetY);
+    Serial.println(")");
+
+    while(pupilX != targetX && pupilY != targetY) {
+        updatePupilX(targetX);
+        updatePupilY(targetY);
+        drawEye();        
         delay(50);
     }
 
     delay(2000);
 }
 
-int getPupilTargetX(int destination) {
+int getPupilTargetY(int destination) {
     switch(destination) {
         case UP:
         case CENTER:
@@ -49,18 +59,18 @@ int getPupilTargetX(int destination) {
         case UP_LEFT:
         case LEFT:
         case DOWN_LEFT:        
-            return 0;
+            return 6;
             break;
         
         case UP_RIGHT:
         case RIGHT:    
         case DOWN_RIGHT:
-            return 6;
+            return 0;
             break;
     }
 }
 
-int getPupilTargetY(int destination) {
+int getPupilTargetX(int destination) {
     switch(destination) {
         case UP_LEFT:
         case UP:        
@@ -143,16 +153,15 @@ static const uint8_t PROGMEM
 
 
 void loop() {
+   drawDefaultEye();
 
-  drawDefaultEye();
+   int wait = random(10,10000);
+   delay(wait);
 
-  int wait = random(10,10000);
-  delay(wait);
-
-  movePupilToLocation(UP_RIGHT);
-  movePupilToLocation(DOWN_LEFT);
-  movePupilToLocation(UP_LEFT);
-  movePupilToLocation(CENTER);
+   movePupilToLocation(UP_RIGHT);
+//   //movePupilToLocation(DOWN_LEFT);
+//   //movePupilToLocation(UP_LEFT);
+   movePupilToLocation(CENTER);
 
 //   Serial.println(getWeightedRandomNumber());
 
@@ -210,57 +219,34 @@ void lookDown() {
 
 }
 
-void lookDownRight() {
+// void snooze() {
+//   matrix.clear();
+//   matrix.drawBitmap(0,0, blank, 8, 8, LED_ON);
+//   matrix.writeDisplay();
 
-  matrix.clear();
-  matrix.drawBitmap(0,0, eyeDownRight1, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(20);
+//   matrix.setTextSize(1);
+//   matrix.setTextWrap(false); 
+//   matrix.setTextColor(LED_ON);
 
-  matrix.clear();
-  matrix.drawBitmap(0,0, eyeDownRight2, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(750);
-  
-  matrix.clear();
-  matrix.drawBitmap(0,0, eyeDownRight1, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(20);
+//   delay(2500);    
 
-  matrix.clear();
-  matrix.drawBitmap(0,0, eyeball, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(20);  
-}
+//   for (int8_t x=0; x>=-60; x--) {
+//     matrix.clear();
+//     matrix.setCursor(x,0);
+//     matrix.print("ZZZZZZZZZZZZZZZZ");
+//     matrix.writeDisplay();
+//     delay(100);
+//   }
 
-void snooze() {
-  matrix.clear();
-  matrix.drawBitmap(0,0, blank, 8, 8, LED_ON);
-  matrix.writeDisplay();
+//   matrix.clear();
+//   matrix.drawBitmap(0,0, blank, 8, 8, LED_ON);
+//   matrix.writeDisplay();
+//   delay(3000);    
 
-  matrix.setTextSize(1);
-  matrix.setTextWrap(false); 
-  matrix.setTextColor(LED_ON);
-
-  delay(2500);    
-
-  for (int8_t x=0; x>=-60; x--) {
-    matrix.clear();
-    matrix.setCursor(x,0);
-    matrix.print("ZZZZZZZZZZZZZZZZ");
-    matrix.writeDisplay();
-    delay(100);
-  }
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blank, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(3000);    
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, eyeball, 8, 8, LED_ON);
-  matrix.writeDisplay();
-}
+//   matrix.clear();
+//   matrix.drawBitmap(0,0, eyeball, 8, 8, LED_ON);
+//   matrix.writeDisplay();
+// }
 
 void blink() {
     int blinkSpeed = getRandomBlinkSpeed();
@@ -335,6 +321,10 @@ void setBrightnessAndDrawEye(int brightness) {
     drawCenteredPupil();
     matrix.writeDisplay();
 }
+
+
+
+
 
 
 
