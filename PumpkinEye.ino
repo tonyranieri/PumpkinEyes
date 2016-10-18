@@ -90,6 +90,11 @@ int getWeightedRandomNumber(int weightedChoices[], int sumOfWeight, int choiceCo
 }
 
 void movePupilToLocation(int destination) {
+    movePupilToLocation(destination, 50);
+}
+
+// delayms - smaller delay will make the animation faster, longer will make animation slower 
+void movePupilToLocation(int destination, int delayms) {
     drawEye();
     delay(20);
 
@@ -103,7 +108,7 @@ void movePupilToLocation(int destination) {
         updatePupilX(targetX);
         updatePupilY(targetY);
         drawEye();        
-        delay(50);  // delay while we're drawing the pupil movement so we can see it happen
+        delay(delayms);  // delay while we're drawing the pupil movement so we can see it happen
     }
 }
 
@@ -283,11 +288,12 @@ void pingpongEyeball() {
 
     int direction1 = random(0,7);
     int direction2 = pickOppositeDirection(direction1);
+    int delayms = 15;
 
     for(int i = 0; i < spinCount; i++) {
-        movePupilToLocation(CENTER);
-        movePupilToLocation(direction1);
-        movePupilToLocation(direction2);
+        movePupilToLocation(CENTER, delayms);
+        movePupilToLocation(direction1, delayms);
+        movePupilToLocation(direction2, delayms);
     }
 
     movePupilToLocation(CENTER);
@@ -326,5 +332,6 @@ int pickOppositeDirection(int direction) {
 void spinEye() {
 
 }
+
 
 
