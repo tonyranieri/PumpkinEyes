@@ -109,11 +109,6 @@ void drawPupil() {
     matrix.fillRect(pupilX, pupilY, 2, 2, LED_OFF);
 }
 
-void resetPupilLocation() {
-    pupilX = defaultPupilX;
-    pupilY = defaultPupilY;
-}
-
 void setup() {
   Serial.begin(9600);
   Serial.println("8x8 LED Matrix Test");
