@@ -54,7 +54,7 @@ void setup() {
 }
 
 void loop() {
-   int wait = random(10, 10000);
+   int wait = random(10, 5000);
    delay(wait);
 
    int destination = getRandomGaze();
@@ -118,8 +118,6 @@ void movePupilToLocation(int destination) {
         drawEye();        
         delay(50);  // delay while we're drawing the pupil movement so we can see it happen
     }
-
-    delay(2000);
 }
 
 int getPupilTargetY(int destination) {
@@ -309,7 +307,4 @@ void setBrightnessAndDrawEye(int brightness) {
     drawPupil();
     matrix.writeDisplay();
 }
-
-
-
 
