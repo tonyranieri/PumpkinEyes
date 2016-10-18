@@ -16,6 +16,16 @@ void setup() {
 }
 
 static const uint8_t PROGMEM
+  baseEyeball[] = {
+    B00111100,
+    B01111110,
+    B11111111,
+    B11111111,
+    B11111111,
+    B11111111,
+    B01111110,
+    B00111100
+  },
   eyeball[] = {
     B00111100,
     B01111110,
@@ -55,109 +65,22 @@ static const uint8_t PROGMEM
     B11111001,
     B01111000,
     B00111100
-  },  
-  blink1[] = {
-    B00000000,
-    B01111110,
-    B11111111,
-    B11100111,
-    B11100111,
-    B11111111,
-    B01111110,
-    B00111100
-  },
-  blink2[] = {
-    B00000000,
-    B00000000,
-    B11111111,
-    B11100111,
-    B11100111,
-    B11111111,
-    B01111110,
-    B00111100
-  },
-  blink3[] = {
-    B00000000,
-    B00000000,
-    B00000000,
-    B11100111,
-    B11100111,
-    B11111111,
-    B01111110,
-    B00111100
-  },
-  blink4[] = {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B11100111,
-    B11111111,
-    B01111110,
-    B00111100
-  },
-  blink5[] = {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B11111111,
-    B01111110,
-    B00111100
-  },
-  blink6[] = {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B01111110,
-    B00111100
-  },
-  blink7[] = {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00111100
-  },
-  blink8[] = {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  }          
+  }
   ;
 
 
 void loop() {
 
-  randNumber = random(300);
-  Serial.println(randNumber);  
+  //lookDownRight();
 
-  matrix.clear();
-  matrix.drawBitmap(0,0, eyeball, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(5000);
+  //pulsateEye();
 
-  lookDownRight();
+  // matrix.setBrightness(1);
+  // blink();
+  // delay(2500);
 
-  delay(2500);
-  blink();
-
-  delay(2500);
-
-  snooze();  
-  delay(2500);
+  //snooze();  
+  //delay(2500);
 }
 
 void lookDownRight() {
@@ -176,94 +99,6 @@ void lookDownRight() {
   matrix.drawBitmap(0,0, eyeDownRight1, 8, 8, LED_ON);
   matrix.writeDisplay();
   delay(20);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, eyeball, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(20);  
-}
-
-void blink() {
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink1, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink2, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink3, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink4, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink5, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink6, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink7, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink8, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink8, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink7, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink6, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink5, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink4, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-  
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink3, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink2, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);
-
-  matrix.clear();
-  matrix.drawBitmap(0,0, blink1, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(25);      
 
   matrix.clear();
   matrix.drawBitmap(0,0, eyeball, 8, 8, LED_ON);
@@ -298,6 +133,74 @@ void snooze() {
   matrix.clear();
   matrix.drawBitmap(0,0, eyeball, 8, 8, LED_ON);
   matrix.writeDisplay();
+}
+
+void blink() {
+    int blinkSpeed = getRandomBlinkSpeed();
+    closeEyeLid(blinkSpeed);
+    openEyeLid(blinkSpeed);
+}
+
+int getRandomBlinkSpeed() {
+    return random(10, 65);
+}
+
+void closeEyeLid(int blinkSpeed) {
+    for(int lidHeight = 0; lidHeight < 9; lidHeight++) {
+        drawEyeWithLid(lidHeight);
+        delay(blinkSpeed);
+    }
+}
+
+void openEyeLid(int blinkSpeed) {
+    for(int lidHeight = 9; lidHeight >= 0; lidHeight--) {
+        drawEyeWithLid(lidHeight);
+        delay(blinkSpeed);
+    }
+}
+
+void drawEyeWithLid(int lidHeight) {
+    drawBaseEyeBall();
+    drawCenteredPupil();
+    matrix.fillRect(-1,-1, 9, lidHeight, LED_OFF);
+    matrix.writeDisplay();
+}
+
+void drawBaseEyeBall() {
+    matrix.clear();
+    matrix.drawBitmap(0,0, baseEyeball, 8, 8, LED_ON);
+}
+
+void drawCenteredPupil() {
+    matrix.fillRect(3, 3, 2, 2, LED_OFF);
+}
+
+void pulsateEye() {    
+    for(int i = 0; i < 100; i++) {
+        dimEye();
+        brightenEye();
+    }    
+}
+
+void dimEye() {
+    for(int brightness = 16; brightness > 0; brightness--) {
+        setBrightnessAndDrawEye(brightness);
+        delay(1);
+    }
+}
+
+void brightenEye() {
+    for(int brightness = 0; brightness < 16; brightness++) {
+        setBrightnessAndDrawEye(brightness);
+        delay(1);        
+    }
+}
+
+void setBrightnessAndDrawEye(int brightness) {
+    matrix.setBrightness(brightness);
+    drawBaseEyeBall();
+    drawCenteredPupil();
+    matrix.writeDisplay();
 }
 
 
