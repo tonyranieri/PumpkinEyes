@@ -22,6 +22,66 @@ const int
     UP_LEFT = 8,
     CENTER = 9;
 
+static const uint8_t PROGMEM
+  baseEyeball[] = {
+    B00111100,
+    B01111110,
+    B11111111,
+    B11111111,
+    B11111111,
+    B11111111,
+    B01111110,
+    B00111100
+  },
+  blank[] {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000
+  }
+  ;
+
+void setup() {
+  Serial.begin(9600);
+  matrix.begin(0x70);  // pass in the address
+  randomSeed(analogRead(0));
+
+  drawDefaultEye();
+}
+
+void loop() {
+   int wait = random(10, 10000);
+   delay(wait);
+
+   movePupilToLocation(UP_RIGHT);
+   movePupilToLocation(DOWN_LEFT);
+   movePupilToLocation(UP_LEFT);
+   movePupilToLocation(CENTER);
+
+//   Serial.println(getWeightedRandomNumber());
+
+//   blink();
+  
+//  lookDown();
+
+
+
+  //lookDownRight();
+
+  //pulsateEye();
+
+  // matrix.setBrightness(1);
+  // blink();
+  // delay(2500);
+
+  //snooze();  
+  //delay(2500);
+}
+
 void movePupilToLocation(int destination) {
     drawEye();
     delay(20);
@@ -119,70 +179,6 @@ void drawPupil() {
     matrix.fillRect(pupilX, pupilY, 2, 2, LED_OFF);
 }
 
-void setup() {
-  Serial.begin(9600);
-  Serial.println("8x8 LED Matrix Test");
-  
-  matrix.begin(0x70);  // pass in the address
-
-  randomSeed(analogRead(0));
-}
-
-static const uint8_t PROGMEM
-  baseEyeball[] = {
-    B00111100,
-    B01111110,
-    B11111111,
-    B11111111,
-    B11111111,
-    B11111111,
-    B01111110,
-    B00111100
-  },
-  blank[] {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  }
-  ;
-
-
-void loop() {
-   drawDefaultEye();
-
-   int wait = random(10,10000);
-   delay(wait);
-
-   movePupilToLocation(UP_RIGHT);
-   movePupilToLocation(DOWN_LEFT);
-   movePupilToLocation(UP_LEFT);
-   movePupilToLocation(CENTER);
-
-//   Serial.println(getWeightedRandomNumber());
-
-//   blink();
-  
-//  lookDown();
-
-
-
-  //lookDownRight();
-
-  //pulsateEye();
-
-  // matrix.setBrightness(1);
-  // blink();
-  // delay(2500);
-
-  //snooze();  
-  //delay(2500);
-}
-
 int getWeightedRandomNumber() {
   
     int weightedChoices[] = { 75, 50, 25 };
@@ -274,24 +270,21 @@ void openEyeLid(int blinkSpeed) {
 
 void drawEyeWithLid(int lidHeight) {
     drawBaseEyeBall();
-    drawCenteredPupil();
+    drawPupil();
     matrix.fillRect(-1,-1, lidHeight, 9, LED_OFF);
     matrix.writeDisplay();
 }
 
 void drawDefaultEye() {
   drawBaseEyeBall();
-  drawCenteredPupil();
+  movePupilToLocation(CENTER);
+  drawPupil();
   matrix.writeDisplay();
 }
 
 void drawBaseEyeBall() {
     matrix.clear();
     matrix.drawBitmap(0,0, baseEyeball, 8, 8, LED_ON);
-}
-
-void drawCenteredPupil() {
-    matrix.fillRect(defaultPupilX, defaultPupilY, 2, 2, LED_OFF);
 }
 
 void pulsateEye() {    
@@ -318,14 +311,8 @@ void brightenEye() {
 void setBrightnessAndDrawEye(int brightness) {
     matrix.setBrightness(brightness);
     drawBaseEyeBall();
-    drawCenteredPupil();
+    drawPupil();
     matrix.writeDisplay();
 }
-
-
-
-
-
-
 
 
