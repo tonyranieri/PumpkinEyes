@@ -57,7 +57,9 @@ void loop() {
     int wait = random(10, 5000);
     delay(wait);
 
-    pingpongEyeball();
+    spinEye();
+    
+    //pingpongEyeball();
 
     // int destination = getRandomGaze();
     // movePupilToLocation(destination);
@@ -87,6 +89,12 @@ int getWeightedRandomNumber(int weightedChoices[], int sumOfWeight, int choiceCo
         return i;
       rnd -= weightedChoices[i];
     }
+}
+
+void setPupilToLocatoin(int location) {
+    pupilX = getPupilTargetX(location);
+    pupilY = getPupilTargetY(location);
+    drawEye();
 }
 
 void movePupilToLocation(int destination) {
@@ -330,8 +338,19 @@ int pickOppositeDirection(int direction) {
 }
 
 void spinEye() {
+    int spinCount = 5;
+    int delayms = 15;
 
+    for(int i = 0; i < spinCount; i++) {
+        movePupilToLocation(CENTER, delayms);
+        movePupilToLocation(RIGHT, delayms);
+        drawBaseEyeBall();
+        matrix.writeDisplay();
+        delay(150);
+        setPupilToLocatoin(LEFT);
+    }
+
+    movePupilToLocation(CENTER);
 }
-
 
 
