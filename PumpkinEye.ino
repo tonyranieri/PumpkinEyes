@@ -36,8 +36,6 @@ void movePupilToLocation(int destination) {
     }
 
     delay(2000);
-
-    resetPupilLocation();    
 }
 
 int getPupilTargetX(int destination) {
@@ -136,16 +134,6 @@ static const uint8_t PROGMEM
     B01111110,
     B00111100
   },
-  eyeball[] = {
-    B00111100,
-    B01111110,
-    B11111111,
-    B11100111,
-    B11100111,
-    B11111111,
-    B01111110,
-    B00111100
-  },
   blank[] {
     B00000000,
     B00000000,
@@ -155,26 +143,6 @@ static const uint8_t PROGMEM
     B00000000,
     B00000000,
     B00000000
-  },
-  eyeDownRight1[] {
-    B00111100,
-    B01111110,
-    B11111111,
-    B11111111,
-    B11110011,
-    B11110011,
-    B01111110,
-    B00111100
-  },
-  eyeDownRight2[] {
-    B00111100,
-    B01111110,
-    B11111111,
-    B11111111,
-    B11111111,
-    B11111001,
-    B01111000,
-    B00111100
   }
   ;
 
@@ -187,6 +155,9 @@ void loop() {
   delay(wait);
 
   movePupilToLocation(UP_RIGHT);
+  movePupilToLocation(DOWN_LEFT);
+  movePupilToLocation(UP_LEFT);
+  movePupilToLocation(CENTER);
 
 //   Serial.println(getWeightedRandomNumber());
 
@@ -369,5 +340,6 @@ void setBrightnessAndDrawEye(int brightness) {
     drawCenteredPupil();
     matrix.writeDisplay();
 }
+
 
 
