@@ -71,6 +71,13 @@ static const uint8_t PROGMEM
 
 void loop() {
 
+  drawDefaultEye();
+
+  int wait = random(10,10000);
+  delay(wait);
+
+  blink();
+  
   //lookDownRight();
 
   //pulsateEye();
@@ -142,7 +149,7 @@ void blink() {
 }
 
 int getRandomBlinkSpeed() {
-    return random(10, 65);
+    return random(10, 45);
 }
 
 void closeEyeLid(int blinkSpeed) {
@@ -164,6 +171,12 @@ void drawEyeWithLid(int lidHeight) {
     drawCenteredPupil();
     matrix.fillRect(-1,-1, 9, lidHeight, LED_OFF);
     matrix.writeDisplay();
+}
+
+void drawDefaultEye() {
+  drawBaseEyeBall();
+  drawCenteredPupil();
+  matrix.writeDisplay();
 }
 
 void drawBaseEyeBall() {
@@ -202,5 +215,6 @@ void setBrightnessAndDrawEye(int brightness) {
     drawCenteredPupil();
     matrix.writeDisplay();
 }
+
 
 
