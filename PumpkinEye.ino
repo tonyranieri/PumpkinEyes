@@ -6,6 +6,12 @@ Adafruit_8x8matrix matrix = Adafruit_8x8matrix();
 
 long randNumber;
 
+int const defaultPupilX = 3;
+int const defaultPupilY = 3;
+int const pupilX = 3;
+int const pupilY = 3;
+
+
 void setup() {
   Serial.begin(9600);
   Serial.println("8x8 LED Matrix Test");
@@ -227,7 +233,7 @@ void drawBaseEyeBall() {
 }
 
 void drawCenteredPupil() {
-    matrix.fillRect(3, 3, 2, 2, LED_OFF);
+    matrix.fillRect(defaultPupilX, defaultPupilY, 2, 2, LED_OFF);
 }
 
 void pulsateEye() {    
@@ -257,6 +263,7 @@ void setBrightnessAndDrawEye(int brightness) {
     drawCenteredPupil();
     matrix.writeDisplay();
 }
+
 
 
 
