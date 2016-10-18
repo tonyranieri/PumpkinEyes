@@ -76,10 +76,14 @@ void loop() {
   int wait = random(10,10000);
   delay(wait);
 
-  Serial.println(getWeightedRandomNumber());
+//   Serial.println(getWeightedRandomNumber());
 
-  blink();
+   blink();
   
+//  lookDown();
+
+
+
   //lookDownRight();
 
   //pulsateEye();
@@ -109,6 +113,23 @@ int getWeightedRandomNumber() {
         return i;
       rnd -= weightedChoices[i];
     }
+}
+
+void lookDown() {
+    matrix.clear();
+    drawDefaultEye();
+    matrix.writeDisplay();
+
+    delay(200);
+
+    for(int i = 4; i < 7; i++){
+        drawBaseEyeBall();
+        matrix.fillRect(i, 3, 2, 2, LED_OFF);
+        matrix.writeDisplay();
+        delay(20);
+    }
+    delay(2000);
+
 }
 
 void lookDownRight() {
@@ -190,7 +211,7 @@ void openEyeLid(int blinkSpeed) {
 void drawEyeWithLid(int lidHeight) {
     drawBaseEyeBall();
     drawCenteredPupil();
-    matrix.fillRect(-1,-1, 9, lidHeight, LED_OFF);
+    matrix.fillRect(-1,-1, lidHeight, 9, LED_OFF);
     matrix.writeDisplay();
 }
 
@@ -236,6 +257,10 @@ void setBrightnessAndDrawEye(int brightness) {
     drawCenteredPupil();
     matrix.writeDisplay();
 }
+
+
+
+
 
 
 
