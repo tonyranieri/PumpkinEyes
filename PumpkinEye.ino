@@ -6,11 +6,115 @@ Adafruit_8x8matrix matrix = Adafruit_8x8matrix();
 
 long randNumber;
 
-int const defaultPupilX = 3;
-int const defaultPupilY = 3;
-int const pupilX = 3;
-int const pupilY = 3;
+int const defaultPupilX = 3,
+          defaultPupilY = 3;
+int pupilX = 3,
+    pupilY = 3;
 
+const int 
+    UP = 1,
+    UP_RIGHT = 2,
+    RIGHT = 3,
+    DOWN_RIGHT = 4,
+    DOWN = 5,
+    DOWN_LEFT = 6,
+    LEFT = 7,
+    UP_LEFT = 8,
+    CENTER = 9;
+
+void movePupilToLocation(int destination) {
+    drawEye();
+    delay(20);
+
+    int targetX = getPupilTargetX(destination),
+        targetY = getPupilTargetY(destination);
+
+    for(; pupilX != targetX, pupilY != targetY; updatePupilX(targetX), updatePupilY(targetY)) {
+      Serial.println(pupilX);
+        drawEye();
+        delay(50);
+    }
+
+    delay(2000);
+
+    resetPupilLocation();    
+}
+
+int getPupilTargetX(int destination) {
+    switch(destination) {
+        case UP:
+        case CENTER:
+        case DOWN:
+            return 3;
+            break;
+
+        case UP_LEFT:
+        case LEFT:
+        case DOWN_LEFT:        
+            return 0;
+            break;
+        
+        case UP_RIGHT:
+        case RIGHT:    
+        case DOWN_RIGHT:
+            return 6;
+            break;
+    }
+}
+
+int getPupilTargetY(int destination) {
+    switch(destination) {
+        case UP_LEFT:
+        case UP:        
+        case UP_RIGHT:
+            return 0;
+            break;
+
+        case LEFT:
+        case CENTER:
+        case RIGHT:    
+            return 3;
+            break;
+
+        case DOWN_LEFT:
+        case DOWN:                
+        case DOWN_RIGHT:
+            return 6;
+            break;
+    }
+}
+
+void updatePupilX(int target) {
+    if(pupilX < target) {
+        pupilX++;
+    } else if (pupilX > target) {
+        pupilX--;
+    }
+}
+
+void updatePupilY(int target) {
+    if(pupilY < target) {
+        pupilY++;
+    } else if (pupilY > target) {
+        pupilY--;
+    }
+}
+
+void drawEye() {
+    matrix.clear();
+    drawBaseEyeBall();
+    drawPupil();
+    matrix.writeDisplay();
+}
+
+void drawPupil() {
+    matrix.fillRect(pupilX, pupilY, 2, 2, LED_OFF);
+}
+
+void resetPupilLocation() {
+    pupilX = defaultPupilX;
+    pupilY = defaultPupilY;
+}
 
 void setup() {
   Serial.begin(9600);
@@ -82,9 +186,11 @@ void loop() {
   int wait = random(10,10000);
   delay(wait);
 
+  movePupilToLocation(UP_RIGHT);
+
 //   Serial.println(getWeightedRandomNumber());
 
-   blink();
+//   blink();
   
 //  lookDown();
 
@@ -263,11 +369,5 @@ void setBrightnessAndDrawEye(int brightness) {
     drawCenteredPupil();
     matrix.writeDisplay();
 }
-
-
-
-
-
-
 
 
