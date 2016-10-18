@@ -38,7 +38,7 @@ void movePupilToLocation(int destination) {
     Serial.print(targetY);
     Serial.println(")");
 
-    while(pupilX != targetX && pupilY != targetY) {
+    while(pupilX != targetX || pupilY != targetY) {
         updatePupilX(targetX);
         updatePupilY(targetY);
         drawEye();        
@@ -159,8 +159,8 @@ void loop() {
    delay(wait);
 
    movePupilToLocation(UP_RIGHT);
-//   //movePupilToLocation(DOWN_LEFT);
-//   //movePupilToLocation(UP_LEFT);
+   movePupilToLocation(DOWN_LEFT);
+   movePupilToLocation(UP_LEFT);
    movePupilToLocation(CENTER);
 
 //   Serial.println(getWeightedRandomNumber());
@@ -321,6 +321,7 @@ void setBrightnessAndDrawEye(int brightness) {
     drawCenteredPupil();
     matrix.writeDisplay();
 }
+
 
 
 
