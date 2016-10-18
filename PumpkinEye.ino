@@ -54,30 +54,17 @@ void setup() {
 }
 
 void loop() {
-   int wait = random(10, 5000);
-   delay(wait);
+    int wait = random(10, 5000);
+    delay(wait);
 
-   int destination = getRandomGaze();
-   movePupilToLocation(destination);
+    pingpongEyeball();
 
-//   Serial.println(getWeightedRandomNumber());
+    // int destination = getRandomGaze();
+    // movePupilToLocation(destination);
 
-//   blink();
-  
-//  lookDown();
-
-
-
-  //lookDownRight();
-
-  //pulsateEye();
-
-  // matrix.setBrightness(1);
-  // blink();
-  // delay(2500);
-
-  //snooze();  
-  //delay(2500);
+    //blink();
+    //pulsateEye();
+    //snooze();  
 }
 
 int getRandomGaze() {
@@ -191,23 +178,6 @@ void drawPupil() {
     matrix.fillRect(pupilX, pupilY, 2, 2, LED_OFF);
 }
 
-void lookDown() {
-    matrix.clear();
-    drawDefaultEye();
-    matrix.writeDisplay();
-
-    delay(200);
-
-    for(int i = 4; i < 7; i++){
-        drawBaseEyeBall();
-        matrix.fillRect(i, 3, 2, 2, LED_OFF);
-        matrix.writeDisplay();
-        delay(20);
-    }
-    delay(2000);
-
-}
-
 // void snooze() {
 //   matrix.clear();
 //   matrix.drawBitmap(0,0, blank, 8, 8, LED_ON);
@@ -307,4 +277,54 @@ void setBrightnessAndDrawEye(int brightness) {
     drawPupil();
     matrix.writeDisplay();
 }
+
+void pingpongEyeball() {
+    int spinCount = 3;
+
+    int direction1 = random(0,7);
+    int direction2 = pickOppositeDirection(direction1);
+
+    for(int i = 0; i < spinCount; i++) {
+        movePupilToLocation(CENTER);
+        movePupilToLocation(direction1);
+        movePupilToLocation(direction2);
+    }
+
+    movePupilToLocation(CENTER);
+}
+
+int pickOppositeDirection(int direction) {
+
+    switch (direction) {
+        case UP: 
+            return DOWN;
+            break;
+        case UP_RIGHT:
+            return DOWN_LEFT;
+            break;
+        case RIGHT:
+            return LEFT;
+            break;
+        case DOWN_RIGHT:
+            return UP_LEFT;
+            break;
+        case DOWN:
+            return UP;
+            break;
+        case DOWN_LEFT:
+            return UP_RIGHT;
+            break;
+        case LEFT:
+            return RIGHT;
+            break;
+        case UP_LEFT:
+            return DOWN_RIGHT;
+            break;
+    }
+}
+
+void spinEye() {
+
+}
+
 
