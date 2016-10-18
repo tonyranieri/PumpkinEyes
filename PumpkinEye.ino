@@ -12,15 +12,15 @@ int pupilX = 3,
     pupilY = 3;
 
 const int 
-    UP = 1,
-    UP_RIGHT = 2,
-    RIGHT = 3,
-    DOWN_RIGHT = 4,
-    DOWN = 5,
-    DOWN_LEFT = 6,
-    LEFT = 7,
-    UP_LEFT = 8,
-    CENTER = 9;
+    UP = 0,
+    UP_RIGHT = 1,
+    RIGHT = 2,
+    DOWN_RIGHT = 3,
+    DOWN = 4,
+    DOWN_LEFT = 5,
+    LEFT = 6,
+    UP_LEFT = 7,
+    CENTER = 8;
 
 static const uint8_t PROGMEM
   baseEyeball[] = {
@@ -57,10 +57,8 @@ void loop() {
    int wait = random(10, 10000);
    delay(wait);
 
-   movePupilToLocation(UP_RIGHT);
-   movePupilToLocation(DOWN_LEFT);
-   movePupilToLocation(UP_LEFT);
-   movePupilToLocation(CENTER);
+   int destination = getRandomGaze();
+   movePupilToLocation(destination);
 
 //   Serial.println(getWeightedRandomNumber());
 
@@ -82,6 +80,28 @@ void loop() {
   //delay(2500);
 }
 
+int getRandomGaze() {
+    int weightedChoices[] = {10, 10, 10, 10, 10, 10, 10, 10, 70};
+    return getWeightedRandomNumber(weightedChoices, 170, 9);
+}
+
+// weightedChoices - array of weights corresponding to how often something should occur 
+// sumOfWeight - sum of all weights in weightedChoices array
+// choiceCount - total # of choices in the weightedChoices array
+int getWeightedRandomNumber(int weightedChoices[], int sumOfWeight, int choiceCount) {
+    for(int i = 0; i < choiceCount; i++) {
+       sumOfWeight += weightedChoices[i];
+    }
+    
+    int rnd = random(sumOfWeight);
+    
+    for(int i = 0; i < choiceCount; i++) {
+      if(rnd < weightedChoices[i])
+        return i;
+      rnd -= weightedChoices[i];
+    }
+}
+
 void movePupilToLocation(int destination) {
     drawEye();
     delay(20);
@@ -89,20 +109,14 @@ void movePupilToLocation(int destination) {
     int targetX = getPupilTargetX(destination),
         targetY = getPupilTargetY(destination);
 
-    Serial.print("destination: ");
+    Serial.print("pupil moving to destination: ");
     Serial.println(destination);
-
-    Serial.print("destination coords (");
-    Serial.print(targetX);
-    Serial.print(",");
-    Serial.print(targetY);
-    Serial.println(")");
 
     while(pupilX != targetX || pupilY != targetY) {
         updatePupilX(targetX);
         updatePupilY(targetY);
         drawEye();        
-        delay(50);
+        delay(50);  // delay while we're drawing the pupil movement so we can see it happen
     }
 
     delay(2000);
@@ -177,25 +191,6 @@ void drawEye() {
 
 void drawPupil() {
     matrix.fillRect(pupilX, pupilY, 2, 2, LED_OFF);
-}
-
-int getWeightedRandomNumber() {
-  
-    int weightedChoices[] = { 75, 50, 25 };
-    int sumOfWeight = 150;
-    int choiceCount = 3;
-        
-    for(int i = 0; i < choiceCount; i++) {
-       sumOfWeight += weightedChoices[i];
-    }
-    
-    int rnd = random(sumOfWeight);
-    
-    for(int i = 0; i < choiceCount; i++) {
-      if(rnd < weightedChoices[i])
-        return i;
-      rnd -= weightedChoices[i];
-    }
 }
 
 void lookDown() {
@@ -314,5 +309,7 @@ void setBrightnessAndDrawEye(int brightness) {
     drawPupil();
     matrix.writeDisplay();
 }
+
+
 
 
