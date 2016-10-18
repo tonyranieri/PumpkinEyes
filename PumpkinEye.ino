@@ -22,6 +22,19 @@ const int
     UP_LEFT = 7,
     CENTER = 8;
 
+const int // standard moves
+    BLINK = 0,
+    MOVE_EYE = 1,
+    SPECIAL = 2;
+    
+const int // special moves
+    SPIN = 0,
+    ROLL = 1, 
+    TWIRL = 2,
+    FLASH = 3,
+    PINGPONG = 4;
+
+
 static const uint8_t PROGMEM
   baseEyeball[] = {
     B00111100,
@@ -57,30 +70,66 @@ void loop() {
     int wait = random(10, 5000);
     delay(wait);
 
-    twirlEye();
-    
-    //rollEye();    
-    //spinEye();
-    
-    //pingpongEyeball();
+    int nextAction = getRandomAction();
+    Serial.print("Next Action: ");
+    Serial.println(nextAction);
 
-    // int destination = getRandomGaze();
-    // movePupilToLocation(destination);
+    switch(nextAction) {
+        case BLINK:
+            blink();
+            break;
+        case MOVE_EYE:
+            movePupilToLocation(getRandomGaze());
+            break;
+        case SPECIAL:
+            performSpecialMove(getRandomSpecialMove());
+            break;
+    } 
+}
 
-    //blink();
-    //pulsateEye();
-    //snooze();  
+void performSpecialMove(int specialMove) {
+    Serial.print("Next Special Move: ");
+    Serial.println(specialMove);
+  
+    switch(specialMove) {
+        case SPIN:
+            spinEye();
+            break;
+        case ROLL:
+            rollEye();
+            break;
+        case TWIRL:
+            twirlEye();
+            break;
+        case FLASH:
+            pulsateEye();
+            break;
+        case PINGPONG:
+            pingpongEyeball();
+            break;
+    }
+}
+
+int getRandomAction() {
+    int weightedChoices[] = { 80, 50, 10 };
+    return getWeightedRandomNumber(weightedChoices, 3);
+}
+
+int getRandomSpecialMove() {
+    int weightedChoices[] = { 20, 20, 20, 1, 10 };
+    return getWeightedRandomNumber(weightedChoices, 5);
 }
 
 int getRandomGaze() {
     int weightedChoices[] = {10, 10, 10, 10, 10, 10, 10, 10, 70};
-    return getWeightedRandomNumber(weightedChoices, 170, 9);
+    return getWeightedRandomNumber(weightedChoices, 9);
 }
 
 // weightedChoices - array of weights corresponding to how often something should occur 
-// sumOfWeight - sum of all weights in weightedChoices array
 // choiceCount - total # of choices in the weightedChoices array
-int getWeightedRandomNumber(int weightedChoices[], int sumOfWeight, int choiceCount) {
+int getWeightedRandomNumber(int weightedChoices[], int choiceCount) {
+    int sumOfWeight = 0;
+    
     for(int i = 0; i < choiceCount; i++) {
        sumOfWeight += weightedChoices[i];
     }
@@ -391,5 +440,7 @@ void twirlEye() {
 
     movePupilToLocation(CENTER);
 }
+
+
 
 
