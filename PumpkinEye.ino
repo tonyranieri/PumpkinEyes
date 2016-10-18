@@ -76,6 +76,8 @@ void loop() {
   int wait = random(10,10000);
   delay(wait);
 
+  Serial.println(getWeightedRandomNumber());
+
   blink();
   
   //lookDownRight();
@@ -88,6 +90,25 @@ void loop() {
 
   //snooze();  
   //delay(2500);
+}
+
+int getWeightedRandomNumber() {
+  
+    int weightedChoices[] = { 75, 50, 25 };
+    int sumOfWeight = 150;
+    int choiceCount = 3;
+        
+    for(int i = 0; i < choiceCount; i++) {
+       sumOfWeight += weightedChoices[i];
+    }
+    
+    int rnd = random(sumOfWeight);
+    
+    for(int i = 0; i < choiceCount; i++) {
+      if(rnd < weightedChoices[i])
+        return i;
+      rnd -= weightedChoices[i];
+    }
 }
 
 void lookDownRight() {
