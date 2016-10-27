@@ -34,40 +34,49 @@ const int // special moves
     FLASH = 3,
     PINGPONG = 4;
 
-
 static const uint8_t PROGMEM
-  baseEyeball[] = {
-    B00111100,
-    B01111110,
-    B11111111,
-    B11111111,
-    B11111111,
-    B11111111,
-    B01111110,
-    B00111100
-  },
-  blank[] {
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000
-  }
-  ;
+    baseEyeball[] = {
+        B00111100,
+        B01111110,
+        B11111111,
+        B11111111,
+        B11111111,
+        B11111111,
+        B01111110,
+        B00111100
+    },
+    blank[] {
+        B00000000,
+        B00000000,
+        B00000000,
+        B00000000,
+        B00000000,
+        B00000000,
+        B00000000,
+        B00000000
+    }
+    ;
+
+int redPin = 11, 
+    greenPin = 10,
+    bluePin = 9;
 
 void setup() {
-  Serial.begin(9600);
-  matrix.begin(0x70);  // pass in the address
-  randomSeed(analogRead(0));
+    Serial.begin(9600);
+    matrix.begin(0x70);  // pass in the address
+    randomSeed(analogRead(0));
 
-  drawDefaultEye();
+    pinMode(redPin, OUTPUT);
+    pinMode(greenPin, OUTPUT);
+    pinMode(bluePin, OUTPUT);  
+
+    setGlowColor(255, 100, 0);  // yellow
+
+    drawDefaultEye();
 }
 
 void loop() {
-    int wait = random(10, 5000);
+    int wait = random(10, 3000);
     delay(wait);
 
     int nextAction = getRandomAction();
@@ -85,6 +94,12 @@ void loop() {
             performSpecialMove(getRandomSpecialMove());
             break;
     } 
+}
+
+void setGlowColor(int red, int green, int blue) {
+    analogWrite(redPin, red);
+    analogWrite(greenPin, green);
+    analogWrite(bluePin, blue);  
 }
 
 void performSpecialMove(int specialMove) {
@@ -304,10 +319,10 @@ void drawEyeWithLid(int lidHeight) {
 }
 
 void drawDefaultEye() {
-  drawBaseEyeBall();
-  movePupilToLocation(CENTER);
-  drawPupil();
-  matrix.writeDisplay();
+    drawBaseEyeBall();
+    movePupilToLocation(CENTER);
+    drawPupil();
+    matrix.writeDisplay();
 }
 
 void drawBaseEyeBall() {
@@ -360,7 +375,6 @@ void pingpongEyeball() {
 }
 
 int pickOppositeDirection(int direction) {
-
     switch (direction) {
         case UP: 
             return DOWN;
@@ -440,7 +454,3 @@ void twirlEye() {
 
     movePupilToLocation(CENTER);
 }
-
-
-
-
