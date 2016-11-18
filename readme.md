@@ -2,7 +2,7 @@
 
 Code to make Adafruit 1.2" 8x8 Bright Square LED Matrix & backpack function as eyes for my decorative pumpkin.
 
-![Alt text](pumpkin-min.jpg?raw=true "Optional Title")
+![Pumpkin Photo](pumpkin-min.jpg?raw=true "Arduino Pumpkin Photo")
 
 ## How It Works
 
